@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "NYz7YFODxY0pTo+q/YY72YqNE9P8Gzyymdf6YbUyjhdD+zxka0DgBiiFSXl84qqdOhSYlm+GhV8ekczJf9XBnQ==",
+  "success": true,
+  "projectFilePath": "/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Storing/PizzaBox.Storing.csproj",
+  "expectedPackageFiles": [
+    "/home/kyle/.nuget/packages/microsoft.netcore.platforms/1.1.0/microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "/home/kyle/.nuget/packages/netstandard.library/2.0.3/netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,13 @@
+/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Client/bin/Debug/netcoreapp3.1/PizzaBox.Client
+/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Client/bin/Debug/netcoreapp3.1/PizzaBox.Client.deps.json
+/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Client/bin/Debug/netcoreapp3.1/PizzaBox.Client.runtimeconfig.json
+/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Client/bin/Debug/netcoreapp3.1/PizzaBox.Client.runtimeconfig.dev.json
+/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Client/bin/Debug/netcoreapp3.1/PizzaBox.Client.dll
+/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Client/bin/Debug/netcoreapp3.1/PizzaBox.Client.pdb
+/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Client/obj/Debug/netcoreapp3.1/PizzaBox.Client.csprojAssemblyReference.cache
+/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Client/obj/Debug/netcoreapp3.1/PizzaBox.Client.AssemblyInfoInputs.cache
+/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Client/obj/Debug/netcoreapp3.1/PizzaBox.Client.AssemblyInfo.cs
+/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Client/obj/Debug/netcoreapp3.1/PizzaBox.Client.csproj.CoreCompileInputs.cache
+/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Client/obj/Debug/netcoreapp3.1/PizzaBox.Client.dll
+/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Client/obj/Debug/netcoreapp3.1/PizzaBox.Client.pdb
+/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Client/obj/Debug/netcoreapp3.1/PizzaBox.Client.genruntimeconfig.cache

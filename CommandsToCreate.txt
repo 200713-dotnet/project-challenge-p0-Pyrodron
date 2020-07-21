@@ -1,0 +1,13 @@
+NOTE: -n is the --name flag, not a new flag
+
+dotnet new sln -n PizzaStore
+dotnet new console -n PizzaBox.Client
+dotnet new classlib -n PizzaBox.Domain
+mkdir PizzaBox.Domain/Abstracts
+mkdir PizzaBox.Domain/Interfaces
+mkdir PizzaBox.Domain/Models
+dotnet new classlib -n PizzaBox.Storing
+mkdir PizzaBox.Storing/Repositories
+dotnet new xunit -n PizzaBox.Testing
+mkdir PizzaBox.Testing/Tests
+dotnet run -p PizzaBox.Client/PizzaBox.Client.csproj
