@@ -21,7 +21,7 @@ The project should support objects of User, Store, Order, Pizza.
 
 ### store
 
-+ [required] there should exist at least 2 stores for a user to choose from
+O [required] there should exist at least 2 stores for a user to choose from
 + [required] each store should be able to view/list any and all of their completed/placed orders
 + [required] each store should be able to view/list any and all of their sales (amount of revenue weekly or monthly)
 

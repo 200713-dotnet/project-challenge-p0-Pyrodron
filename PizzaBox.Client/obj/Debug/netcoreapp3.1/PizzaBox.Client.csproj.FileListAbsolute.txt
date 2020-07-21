@@ -11,3 +11,6 @@
 /home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Client/obj/Debug/netcoreapp3.1/PizzaBox.Client.dll
 /home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Client/obj/Debug/netcoreapp3.1/PizzaBox.Client.pdb
 /home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Client/obj/Debug/netcoreapp3.1/PizzaBox.Client.genruntimeconfig.cache
+/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Client/bin/Debug/netcoreapp3.1/PizzaBox.Domain.dll
+/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Client/bin/Debug/netcoreapp3.1/PizzaBox.Domain.pdb
+/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Client/obj/Debug/netcoreapp3.1/PizzaBox.Client.csproj.CopyComplete
