@@ -11,6 +11,16 @@
         "runtime": {
           "bin/placeholder/PizzaBox.Domain.dll": {}
         }
+      },
+      "PizzaBox.Storing/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/PizzaBox.Storing.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PizzaBox.Storing.dll": {}
+        }
       }
     }
   },
@@ -19,11 +29,17 @@
       "type": "project",
       "path": "../PizzaBox.Domain/PizzaBox.Domain.csproj",
       "msbuildProject": "../PizzaBox.Domain/PizzaBox.Domain.csproj"
+    },
+    "PizzaBox.Storing/1.0.0": {
+      "type": "project",
+      "path": "../PizzaBox.Storing/PizzaBox.Storing.csproj",
+      "msbuildProject": "../PizzaBox.Storing/PizzaBox.Storing.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "PizzaBox.Domain >= 1.0.0"
+      "PizzaBox.Domain >= 1.0.0",
+      "PizzaBox.Storing >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -52,6 +68,9 @@
           "projectReferences": {
             "/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Domain/PizzaBox.Domain.csproj": {
               "projectPath": "/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Domain/PizzaBox.Domain.csproj"
+            },
+            "/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Storing/PizzaBox.Storing.csproj": {
+              "projectPath": "/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Storing/PizzaBox.Storing.csproj"
             }
           }
         }

@@ -27,6 +27,9 @@
             "projectReferences": {
               "/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Domain/PizzaBox.Domain.csproj": {
                 "projectPath": "/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Domain/PizzaBox.Domain.csproj"
+              },
+              "/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Storing/PizzaBox.Storing.csproj": {
+                "projectPath": "/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Storing/PizzaBox.Storing.csproj"
               }
             }
           }
@@ -66,6 +69,59 @@
         "projectPath": "/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Domain/PizzaBox.Domain.csproj",
         "packagesPath": "/home/kyle/.nuget/packages/",
         "outputPath": "/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Domain/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/kyle/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.301/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Storing/PizzaBox.Storing.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Storing/PizzaBox.Storing.csproj",
+        "projectName": "PizzaBox.Storing",
+        "projectPath": "/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Storing/PizzaBox.Storing.csproj",
+        "packagesPath": "/home/kyle/.nuget/packages/",
+        "outputPath": "/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Storing/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/kyle/.nuget/NuGet/NuGet.Config"

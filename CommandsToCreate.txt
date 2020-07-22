@@ -12,5 +12,5 @@ dotnet new xunit -n PizzaBox.Testing
 mkdir PizzaBox.Testing/Tests
 dotnet sln add **/*.csproj
 dotnet add PizzaBox.Client/PizzaBox.Client.csproj reference PizzaBox.Domain/PizzaBox.Domain.csproj
-dotnet add PizzaBox.Storing/PizzaBox.Storing.csproj reference PizzaBox.Storing/PizzaBox.Storing.csproj
+dotnet add PizzaBox.Client/PizzaBox.Client.csproj reference PizzaBox.Storing/PizzaBox.Storing.csproj
 dotnet run -p PizzaBox.Client/PizzaBox.Client.csproj

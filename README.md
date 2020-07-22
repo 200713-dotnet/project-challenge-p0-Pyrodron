@@ -22,24 +22,24 @@ The project should support objects of User, Store, Order, Pizza.
 ### store
 
 O [required] there should exist at least 2 stores for a user to choose from
-+ [required] each store should be able to view/list any and all of their completed/placed orders
-+ [required] each store should be able to view/list any and all of their sales (amount of revenue weekly or monthly)
+O [required] each store should be able to view/list any and all of their completed/placed orders
+O [required] each store should be able to view/list any and all of their sales (amount of revenue weekly or monthly)
 
 ### order
 
-+ [required] each order must be able to view/list/edit its collection of pizzas
-+ [required] each order must be able to compute its pricing
-+ [required] each order must be limited to a total pricing of no more than $250
-+ [required] each order must be limited to a collection of pizzas of no more than 50
+O [required] each order must be able to view/list/edit its collection of pizzas
+O [required] each order must be able to compute its pricing
+O [required] each order must be limited to a total pricing of no more than $250
+O [required] each order must be limited to a collection of pizzas of no more than 50
 
 ### pizza
 
-+ [required] each pizza must be able to have a crust
-+ [required] each pizza must be able to have a size
-+ [required] each pizza must be able to have toppings
-+ [required] each pizza must be able to compute its pricing
-+ [required] each pizza must have no less than 2 default toppings
-+ [required] each pizza must limit its toppings to no more 5
+O [required] each pizza must be able to have a crust
+O [required] each pizza must be able to have a size
+O [required] each pizza must be able to have toppings
+O [required] each pizza must be able to compute its pricing
+O [required] each pizza must have no less than 2 default toppings
+O [required] each pizza must limit its toppings to no more 5
 
 ### user
 
