@@ -12,22 +12,17 @@ namespace PizzaBox.Domain.Models {
       pizzas = new List<Pizza>();
       totalCost = 0.00M;
     }
-
-    public bool AddPizzas(List<Pizza> pizzasToOrder) {
-      decimal cost = 0.00M;
-      if (pizzasToOrder.Count + pizzas.Count > 50) {
-        Console.WriteLine("Order exceeds 50 pizzas");
+    
+    public bool AddPizza(Pizza pizzaToAdd) {
+      if (pizzas.Count + 1 > 50) {
+        Console.WriteLine("Could not add pizza; Order caps at 50");
         return false;
       }
-      foreach (Pizza pizza in pizzasToOrder) {
-        cost += pizza.GetPrice();
-      }
-      if (totalCost + cost > 250.00M) {
-        Console.WriteLine("Order exceeds $250.00");
+      if (totalCost + pizzaToAdd.GetPrice() > 250.00M) {
+        Console.WriteLine("Could not add pizza; Order total cannot exceed $250.00");
         return false;
       }
-      pizzas.AddRange(pizzasToOrder);
-      totalCost += cost;
+      pizzas.Add(pizzaToAdd);
       return true;
     }
 

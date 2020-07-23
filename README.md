@@ -43,9 +43,9 @@ O [required] each pizza must limit its toppings to no more 5
 
 ### user
 
-+ [required] must be able to view/list its order history
-+ [required] must be able to only order from 1 location in a 24-hour period with no reset
-+ [required] must be able to only order once every 2-hour period
+O [required] must be able to view/list its order history
+O [required] must be able to only order from 1 location in a 24-hour period with no reset
+O [required] must be able to only order once every 2-hour period
 
 ## technologies
 
@@ -63,9 +63,9 @@ O [required] each pizza must limit its toppings to no more 5
 
 as a user, i should be able to do this:
 
-+ access the application
-+ see a list of locations
-+ select a location
+O access the application
+O see a list of locations
+O select a location
 + place an order
 + with either custom or preset pizzas
 + if custom

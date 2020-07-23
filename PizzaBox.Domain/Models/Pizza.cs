@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace PizzaBox.Domain.Models {
@@ -32,6 +33,22 @@ namespace PizzaBox.Domain.Models {
 
     public decimal GetPrice() {
       return (decimal) price;
+    }
+
+    public override string ToString() {
+      StringBuilder stringBuilder = new StringBuilder();
+      stringBuilder.Append($"{size} ");
+      for (int i = 0; i < toppings.Count; i++) {
+        stringBuilder.Append(toppings[i]);
+        if (i != toppings.Count - 1) {
+          stringBuilder.Append(", ");
+        }
+      }
+      if (toppings.Count == 0) {
+        stringBuilder.Append($"cheese");
+      }
+      stringBuilder.Append($" pizza with {crust} crust");
+      return stringBuilder.ToString();
     }
   }
 }

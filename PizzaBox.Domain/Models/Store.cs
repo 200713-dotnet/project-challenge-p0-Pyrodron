@@ -20,17 +20,36 @@ namespace PizzaBox.Domain.Models {
     }
 
     public void Visit(User user) {
-      List<Order> orders = Menu();
+      if (user.CanOrder(this)) {
+        Order order = Menu();
+        user.AddOrder(this, order);
+      }
     }
 
-    public List<Order> Menu() {
-      List<Order> ordersToAdd = new List<Order>();
+    public Order Menu() {
+      Order order = new Order();
       bool ordering = true;
       while (ordering) {
-        Console.WriteLine("\nMenu:");
-        ordering = false;
+        Console.WriteLine("\nPlease select a pizza from the menu below:");
+        for (int i = 0; i < menu.Count; i++) {
+          Console.WriteLine($"{i + 1} - {menu[i].ToString()}");
+        }
+        Console.WriteLine($"{menu.Count + 1} - Finished Ordering"); // let the last option allow the user to finish ordering
+        int selection;
+        if (int.TryParse(Console.ReadLine(), out selection)) {
+          if (selection == menu.Count + 1) {
+            break;
+          } else if (selection >= 1 && selection <= menu.Count) {
+            order.AddPizza(menu[--selection]);
+            Console.WriteLine($"Added {menu[selection]}");
+          } else {
+            Console.WriteLine("Error: Invalid option selected. Please try again.");
+          }
+        } else {
+          Console.WriteLine("Error: Invalid input detected. Please try again.");
+        }
       }
-      return ordersToAdd;
+      return order;
     }
 
     public List<Order> GetCompletedOrders() {
@@ -69,51 +88,11 @@ namespace PizzaBox.Domain.Models {
     }
 
     public void GetWeeklySalesReports() {
-      Dictionary<DateTime, List<Order>> weeks = new Dictionary<DateTime, List<Order>>();
-
-      foreach (DateTime day in completedOrders.Keys) {
-        DateTime sunday = day.AddDays((int) day.DayOfWeek * -1).Date;
-        try {
-          weeks[sunday].AddRange(completedOrders[day]);
-        } catch (KeyNotFoundException) {
-          List<Order> orders = new List<Order>();
-          orders.AddRange(completedOrders[day]);
-          weeks.Add(sunday, orders);
-        }
-      }
-      
-      Console.WriteLine($"Weekly sales report for {name}:");
-      foreach (DateTime sunday in weeks.Keys) {
-        decimal totalSalesOfWeek = 0.00M;
-        foreach (Order order in weeks[sunday]) {
-          totalSalesOfWeek += order.GetTotalCost();
-        }
-        Console.WriteLine($"> For the week of {sunday.ToLongDateString()}: ${totalSalesOfWeek}");
-      }
+      GenerateReport(7);
     }
 
     public void GetMonthlySalesReports() {
-      Dictionary<DateTime, List<Order>> months = new Dictionary<DateTime, List<Order>>();
-
-      foreach (DateTime day in completedOrders.Keys) {
-        DateTime first = day.AddDays((day.Day - 1) * -1).Date;
-        try {
-          months[first].AddRange(completedOrders[day]);
-        } catch (KeyNotFoundException) {
-          List<Order> orders = new List<Order>();
-          orders.AddRange(completedOrders[day]);
-          months.Add(first, orders);
-        }
-      }
-      
-      Console.WriteLine($"Monthly sales report for {name}:");
-      foreach (DateTime month in months.Keys) {
-        decimal totalSalesOfMonth = 0.00M;
-        foreach (Order order in months[month]) {
-          totalSalesOfMonth += order.GetTotalCost();
-        }
-        Console.WriteLine($"> For {month.Month} {month.Year}: ${totalSalesOfMonth}");
-      }
+      GenerateReport(30);
     }
   }
 }
