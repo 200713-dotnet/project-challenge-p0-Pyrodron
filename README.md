@@ -66,7 +66,7 @@ as a user, i should be able to do this:
 O access the application
 O see a list of locations
 O select a location
-+ place an order
+O place an order
 + with either custom or preset pizzas
 + if custom
 + select crust, size and toppings

@@ -13,4 +13,9 @@ mkdir PizzaBox.Testing/Tests
 dotnet sln add **/*.csproj
 dotnet add PizzaBox.Client/PizzaBox.Client.csproj reference PizzaBox.Domain/PizzaBox.Domain.csproj
 dotnet add PizzaBox.Client/PizzaBox.Client.csproj reference PizzaBox.Storing/PizzaBox.Storing.csproj
+dotnet add PizzaBox.Client/PizzaBox.Client.csproj package Microsoft.EntityFrameworkCore.Design
+dotnet add PizzaBox.Client/PizzaBox.Client.csproj package Microsoft.EntityFrameworkCore.Sqlserver
+dotnet add PizzaBox.Storing/PizzaBox.Storing.csproj package microsoft.entityframeworkcore // needed?
+dotnet add PizzaBox.Storing/PizzaBox.Storing.csproj package microsoft.entityframeworkcore.sqlserver
+dotnet-ef dbcontext scaffold -s PizzaBox.Client/PizzaBox.Client.csproj -p PizzaBox.Storing/PizzaBox.Storing.csproj 'server=localhost;database=PizzaProject;user id=sa;password=Passw0rd' microsoft.entityframeworkcore.sqlserver
 dotnet run -p PizzaBox.Client/PizzaBox.Client.csproj

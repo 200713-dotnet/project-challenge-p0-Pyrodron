@@ -1,52 +1,96 @@
 ﻿using System;
 using PizzaBox.Domain.Models;
 using System.Collections.Generic;
-using System.Linq;
+using System.Data.SqlClient;
+using System.Data.SqlTypes;
 
 namespace PizzaBox.Client {
     class Program {
         static void Main(string[] args) {
-          bool tryAgain = true;
-          List<Pizza> pizzas = new List<Pizza>{
-            new Pizza("L", "thin", new List<string>{"mushrooms", "green peppers", "pepperoni", "black olives", "sausage"}, 15.00),
-            new Pizza("L", "thin", new List<string>{"pepperoni"}, 10.00),
-            new Pizza("L", "thin", new List<string>{}, 5.00)
-          };
-          Store store1 = new Store("Fricano's Pizzareia", pizzas);
-          pizzas = new List<Pizza>{
-            new Pizza("S", "thin", new List<string>{"mushrooms", "green peppers", "pepperoni", "black olives", "sausage"}, 10.00),
-            new Pizza("M", "thin", new List<string>{"mushrooms", "green peppers", "pepperoni", "black olives", "sausage"}, 15.00),
-            new Pizza("L", "thin", new List<string>{"mushrooms", "green peppers", "pepperoni", "black olives", "sausage"}, 20.00),
-            new Pizza("S", "thick", new List<string>{"pepperoni"}, 5.00),
-            new Pizza("M", "thick", new List<string>{"pepperoni"}, 10.00),
-            new Pizza("L", "thick", new List<string>{"pepperoni"}, 15.00),
-          };
-          Store store2 = new Store("Hungry Howie's", pizzas);
-          User user = new User(new List<Store>{store1, store2});
+          // move database handling to PizzaStore.Storing
+          //dotnet-ef dbcontext scaffold -s PizzaBox.Client/PizzaBox.Client.csproj -p PizzaBox.Storing/PizzaBox.Storing.csproj 'server=localhost;database=PizzaBoxDb;user id=sa;password=Password12345' microsoft.entityframeworkcore.sqlserver
+          SqlConnection conn = new SqlConnection();
+          conn.ConnectionString = "Data Source=localhost;Initial Catalog=PizzaProject;User id=sa;Password=Passw0rd;";
+          conn.Open();
 
+          Dictionary<int, Store> stores = new Dictionary<int, Store>();
+          SqlCommand command = new SqlCommand("SELECT * FROM Project.Store;", conn);
+          SqlDataReader reader = command.ExecuteReader();
+          while (reader.Read()) {
+            stores.Add(reader.GetInt32(0), new Store(reader.GetString(1)));
+          }
+          reader.Close();
+
+          Dictionary<int, Pizza> pizzas = new Dictionary<int, Pizza>();
+          command.CommandText = "SELECT * FROM Project.Pizza;";
+          reader = command.ExecuteReader();
+          while (reader.Read()) {
+            string[] toppings = new string[0];
+            try {
+              toppings = reader.GetString(3).Split(',');
+            } catch (SqlNullValueException) {}
+            
+            Pizza pizza = new Pizza(reader.GetInt32(0), reader.GetString(1), reader.GetFloat(2), toppings, reader.GetString(4));
+            pizzas.Add(pizza.GetID(), pizza);
+          }
+          reader.Close();
+
+          command.CommandText = "SELECT * FROM Project.Menu;";
+          reader = command.ExecuteReader();
+          while (reader.Read()) {
+            stores[reader.GetInt32(0)].AddPizza(pizzas[reader.GetInt32(1)]);
+          }
+          reader.Close();
+
+          User user = new User(1);
+          command.CommandText = $"SELECT * FROM Project.PizzaOrder WHERE UserID = {user.GetUserID()};";
+          reader = command.ExecuteReader();
+          Dictionary<int, Order> orders = new Dictionary<int, Order>();
+          while (reader.Read()) {
+            try {
+              orders[reader.GetInt32(0)].AddPizza(pizzas[reader.GetInt32(2)]);
+            } catch (KeyNotFoundException) {
+              Store store = stores[reader.GetInt32(1)];
+              List<Pizza> newPizzas = new List<Pizza>{
+                pizzas[reader.GetInt32(2)]
+              };
+            Order order = new Order(store, user, reader.GetDateTime(4), newPizzas, reader.GetFloat(5));
+            }
+          }
+
+          bool tryAgain = true;
           while (tryAgain) {
             Console.WriteLine("Hello! Please select which store you would like to visit.");
-            Console.WriteLine($"1 - {store1.GetName()}\n2 - {store2.GetName()}\n3 - Exit");
-
+            int i = 1;
+            int[] keys = new int[stores.Keys.Count];
+            stores.Keys.CopyTo(keys, 0);
+            foreach (int key in keys) {
+              Console.WriteLine($"{i++} - {stores[key].GetName()}");
+            }
+            Console.WriteLine($"{i} - Exit");
             int selection;
             if (int.TryParse(Console.ReadLine(), out selection)) {
-              if (selection >= 1 && selection <= 3) {
-                tryAgain = false;
-                switch (selection) {
-                  case 1:
-                    store1.Visit(user);
-                    break;
-                  case 2:
-                    store1.Visit(user);
-                    break;
-                  case 3:
-                    break;
+              if (selection != i) {
+                stores[selection].Visit(user);
+
+                bool tryAgain2 = true;
+                Console.Write("Do you want to visit another store (Y/N)? ");
+                while (tryAgain2) {
+                  char response = char.ToUpper(Console.ReadKey().KeyChar);
+                  if (response == 'Y' || response == 'N') {
+                    tryAgain2 = false;
+                    if (response == 'N') {
+                      tryAgain = false;
+                    }
+                  } else {
+                    Console.WriteLine("Invalid input detected. Please press Y or Shift+Y for yes, or N or Shift+N for no.");
+                  }
                 }
               } else {
-                Console.WriteLine("Invalid option. Please try again.");
+                tryAgain = false;
               }
             } else {
-              Console.WriteLine("Error: Invalid input was detected. Please try again.");
+              Console.WriteLine("Invalid input detected. Please try again.");
             }
           }
         }
