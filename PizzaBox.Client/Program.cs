@@ -18,7 +18,7 @@ namespace PizzaBox.Client {
           User user = new User{ id = 1 };
           Dictionary<int, Order> orders = pizzaDB.GetOrders(user.id);
           foreach (int orderID in orders.Keys) {
-            Console.WriteLine(orders[orderID]);
+            user.orders.Add(orders[orderID]);
           }
           
           // SqlConnection conn = new SqlConnection();
@@ -38,7 +38,12 @@ namespace PizzaBox.Client {
             int selection;
             if (int.TryParse(Console.ReadLine(), out selection)) {
               if (selection != i) {
-                stores[selection].Visit(user);
+                Order newOrder = stores[selection].Visit(user);
+
+                if (newOrder != null) {
+                  pizzaDB.AddOrder(newOrder);
+                  // refresh orders?
+                }
 
                 bool tryAgain2 = true;
                 Console.Write("Do you want to visit another store (Y/N)? ");

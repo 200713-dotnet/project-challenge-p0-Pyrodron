@@ -65,6 +65,10 @@ namespace PizzaBox.Domain.Models {
       }
     }
 
+    public override string ToString() {
+      return $"{name} pizza with {string.Join(", ", _toppings)} and {_crust} crust";
+    }
+
     // public Pizza(int pizzaID, string name, double pizzaPrice, string[] toppings, string crust) {
     //   id = pizzaID;
     //   Price = pizzaPrice;

@@ -122,5 +122,19 @@ namespace PizzaBox.Storing.Repositories {
       }
       return ordersForUser;
     }
+
+    public void AddOrder(domain.Order order) {
+      foreach (domain.Pizza pizza in order.pizzas) {
+        PizzaOrder dbOrder = new PizzaOrder {
+          StoreId = order.store.id,
+          PizzaId = pizza.id,
+          UserId = order.user,
+          WhenOrdered = (DateTime) order.created,
+          TotalCost = (float) order.totalCost
+        };
+        db.PizzaOrder.Add(dbOrder);
+        // db.SaveChanges();
+      }
+    }
   }
 }

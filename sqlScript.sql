@@ -50,7 +50,7 @@ SELECT * FROM Project.Menu;
 
 DROP TABLE Project.PizzaOrder;
 CREATE TABLE Project.PizzaOrder(
-  OrderID INT NOT NULL PRIMARY KEY,
+  OrderID INT IDENTITY(1, 1) NOT NULL PRIMARY KEY,
   StoreID INT FOREIGN KEY REFERENCES Project.Store(ID),
   PizzaID INT FOREIGN KEY REFERENCES Project.Pizza(ID),
   UserID INT NOT NULL,
@@ -59,6 +59,9 @@ CREATE TABLE Project.PizzaOrder(
 );
 
 INSERT INTO Project.PizzaOrder VALUES(
-  1, 2, 3, 1, '01/01/98 23:59:59', 1.00
+  2, 3, 1, '01/01/98 23:59:59', 1.00
 );
+GO
+
+SELECT * FROM Project.PizzaOrder;
 GO

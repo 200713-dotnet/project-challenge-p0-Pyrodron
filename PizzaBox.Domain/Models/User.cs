@@ -7,7 +7,6 @@ namespace PizzaBox.Domain.Models {
     // Dictionary<Store, DateTime?> lastAccessed;
     // DateTime? lastOrderAdded;
     // List<Store> storesToOrderFrom;
-    // int id;
 
     int _id = -1;
     public int id {
@@ -20,6 +19,7 @@ namespace PizzaBox.Domain.Models {
         }
       }
     }
+    public List<Order> orders = new List<Order>();
 
     // public User(List<Store> stores, int userID) {
     //   orders = new Dictionary<Store, List<Order>>();
@@ -30,25 +30,6 @@ namespace PizzaBox.Domain.Models {
     //   lastOrderAdded = null;
     //   storesToOrderFrom = new List<Store>(stores);
     //   id = userID;
-    // }
-
-    // public bool CanOrder(Store store) {
-    //   // Console.WriteLine(lastAccessed);
-    //   // try {
-    //   //   TimeSpan elapsed = DateTime.Now - (DateTime) lastAccessed[store];
-    //   //   int hours = elapsed.Hours;
-    //   //   if (elapsed.Hours < 2) {
-    //   //     int minutes = elapsed.Minutes;
-    //   //     Console.WriteLine($"You must wait {hours} hour{(hours != 2 ? "" : "s")} and {minutes} minute{(minutes != 2 ? "" : "s")} before placing another order.");
-    //   //     return false;
-    //   //   }
-    //   //   return true;
-    //   // } catch (KeyNotFoundException) {
-    //   //   return true;
-    //   // } catch (InvalidOperationException) {
-    //   //   return true;
-    //   // }
-    //   return false;
     // }
 
     // public List<Order> GetOrders(Store store) {
