@@ -21,20 +21,21 @@ namespace PizzaBox.Client {
           foreach (int orderID in orders.Keys) {
             user.AddOrder(orders[orderID]);
           }
-          
+
           bool tryAgain = true;
           while (tryAgain) {
-            Console.WriteLine("Hello! Please select which store you would like to visit.");
+            Console.WriteLine("Hello! Please select which store you would like to visit, or any option below.");
             int i = 1;
             int[] keys = new int[stores.Keys.Count];
             stores.Keys.CopyTo(keys, 0);
             foreach (int key in keys) {
               Console.WriteLine($"{i++} - {stores[key].name}");
             }
+            Console.WriteLine($"{i++} - View Order History");
             Console.WriteLine($"{i} - Exit");
             int selection;
             if (int.TryParse(Console.ReadLine(), out selection)) {
-              if (selection != i) {
+              if (selection != i && selection != i - 1) {
                 Order newOrder = stores[selection].Visit(user);
 
                 if (newOrder != null) {
@@ -54,6 +55,15 @@ namespace PizzaBox.Client {
                     }
                   } else {
                     Console.WriteLine("Invalid input detected. Please press Y or Shift+Y for yes, or N or Shift+N for no.");
+                  }
+                }
+              } else if (selection == i - 1) {
+                Console.WriteLine("Order History:");
+                foreach (int orderID in orders.Keys) {
+                  Order order = orders[orderID];
+                  Console.WriteLine($"\t> Order #{orderID}: ");
+                  foreach (Pizza pizza in order.pizzas) {
+                    Console.WriteLine($"\t\t> {pizza}");
                   }
                 }
               } else {

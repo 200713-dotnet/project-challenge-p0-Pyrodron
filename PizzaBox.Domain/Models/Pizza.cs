@@ -79,7 +79,7 @@ namespace PizzaBox.Domain.Models {
 
     public override string ToString() {
       // string size = _size == 'S' ? "Small" : _size == 'M' ? "Medium" : _size == 'L' ? "Large" : "Unknown Size";
-      return $"{name} pizza with {string.Join(", ", _toppings)} and {_crust} crust";
+      return $"{name} pizza with {string.Join(", ", _toppings)} and {_crust} crust - ${cost}";
     }
     // public Pizza(int pizzaID, string sizeOfPizza, string crustType, List<string> toppingsOnPizza, double cost) {
     //   id = pizzaID;
