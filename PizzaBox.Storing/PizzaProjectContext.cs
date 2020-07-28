@@ -2,10 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace PizzaBox.Storing
-{
-    public partial class PizzaProjectContext : DbContext
-    {
+namespace PizzaBox.Storing {
+    public partial class PizzaProjectContext : DbContext {
         public PizzaProjectContext()
         {
         }

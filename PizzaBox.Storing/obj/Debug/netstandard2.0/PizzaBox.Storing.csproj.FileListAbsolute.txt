@@ -7,3 +7,6 @@
 /home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Storing/obj/Debug/netstandard2.0/PizzaBox.Storing.csproj.CoreCompileInputs.cache
 /home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Storing/obj/Debug/netstandard2.0/PizzaBox.Storing.dll
 /home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Storing/obj/Debug/netstandard2.0/PizzaBox.Storing.pdb
+/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Storing/bin/Debug/netstandard2.0/PizzaBox.Domain.dll
+/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Storing/bin/Debug/netstandard2.0/PizzaBox.Domain.pdb
+/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Storing/obj/Debug/netstandard2.0/PizzaBox.Storing.csproj.CopyComplete

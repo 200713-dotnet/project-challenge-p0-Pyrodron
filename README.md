@@ -55,7 +55,7 @@ O [required] must be able to only order once every 2-hour period
 
 ## timelines
 
-+ due on Jul-27 at 11p Central
++ due on Jul-28 at 11p Central
 + present on Jul-29 starting at 9.30a Central
 + implement as many requirements as you can
 

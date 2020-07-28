@@ -1303,6 +1303,11 @@
       "PizzaBox.Storing/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "PizzaBox.Domain": "1.0.0",
+          "microsoft.entityframeworkcore": "3.1.6",
+          "microsoft.entityframeworkcore.sqlserver": "3.1.6"
+        },
         "compile": {
           "bin/placeholder/PizzaBox.Storing.dll": {}
         },

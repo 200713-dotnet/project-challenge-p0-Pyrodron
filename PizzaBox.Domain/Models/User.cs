@@ -9,6 +9,18 @@ namespace PizzaBox.Domain.Models {
     // List<Store> storesToOrderFrom;
     // int id;
 
+    int _id = -1;
+    public int id {
+      get {
+        return _id;
+      }
+      set {
+        if (_id == -1 && value >= 0) {
+          _id = value;
+        }
+      }
+    }
+
     // public User(List<Store> stores, int userID) {
     //   orders = new Dictionary<Store, List<Order>>();
     //   lastAccessed = new Dictionary<Store, DateTime?>();
@@ -19,15 +31,6 @@ namespace PizzaBox.Domain.Models {
     //   storesToOrderFrom = new List<Store>(stores);
     //   id = userID;
     // }
-    int id;
-
-    public User(int userID) {
-      id = userID;
-    }
-
-    public int GetUserID() {
-      return id;
-    }
 
     // public bool CanOrder(Store store) {
     //   // Console.WriteLine(lastAccessed);

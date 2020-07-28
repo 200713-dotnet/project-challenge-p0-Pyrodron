@@ -5,28 +5,81 @@ using System.Text.RegularExpressions;
 
 namespace PizzaBox.Domain.Models {
   public class Pizza {
-    string Size;
-    string Crust;
-    string[] Toppings;
-    double Price;
-    int id;
-    string Name;
-
-    public Pizza(int pizzaID, string name, double pizzaPrice, string[] toppings, string crust) {
-      id = pizzaID;
-      Price = pizzaPrice;
-      Name = name;
-      Crust = crust;
-      Toppings = toppings;
+    string _crust = null;
+    public string crust {
+      get {
+        return _crust;
+      }
+      set {
+        if (_crust == null) {
+          _crust = value;
+        }
+      }
     }
 
-    public int GetID() {
-      return id;
+    string[] _toppings = null;
+    public string[] toppings {
+      get {
+        return _toppings;
+      }
+      set {
+        if (_toppings == null) {
+          _toppings = value;
+        }
+      }
     }
 
-    public double GetPrice() {
-      return Price;
+    double _cost = -0.01;
+    public double cost {
+      get {
+        return _cost;
+      }
+      set {
+        if (_cost == -0.01 && value >= 0.00) {
+          _cost = value;
+        }
+      }
     }
+
+    int _id = -1;
+    public int id {
+      get {
+        return _id;
+      }
+      set {
+        if (_id == -1 && value >= 0) {
+          _id = value;
+        }
+      }
+    }
+
+    string _name = null;
+    public string name {
+      get {
+        return _name;
+      }
+      set {
+        if (_name == null) {
+          _name = value;
+        }
+      }
+    }
+
+    // public Pizza(int pizzaID, string name, double pizzaPrice, string[] toppings, string crust) {
+    //   id = pizzaID;
+    //   Price = pizzaPrice;
+    //   Name = name;
+    //   Crust = crust;
+    //   Toppings = toppings;
+    // }
+
+    // public int GetID() {
+    //   return id;
+    // }
+
+    // public double GetPrice() {
+    //   return Price;
+    // }
 
     // public Pizza(int pizzaID, string sizeOfPizza, string crustType, List<string> toppingsOnPizza, double cost) {
     //   id = pizzaID;

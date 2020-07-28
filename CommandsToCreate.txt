@@ -13,6 +13,7 @@ mkdir PizzaBox.Testing/Tests
 dotnet sln add **/*.csproj
 dotnet add PizzaBox.Client/PizzaBox.Client.csproj reference PizzaBox.Domain/PizzaBox.Domain.csproj
 dotnet add PizzaBox.Client/PizzaBox.Client.csproj reference PizzaBox.Storing/PizzaBox.Storing.csproj
+dotnet add PizzaBox.Storing/PizzaBox.Storing.csproj reference PizzaBox.Domain/PizzaBox.Domain.csproj
 dotnet add PizzaBox.Client/PizzaBox.Client.csproj package Microsoft.EntityFrameworkCore.Design
 dotnet add PizzaBox.Client/PizzaBox.Client.csproj package Microsoft.EntityFrameworkCore.Sqlserver
 dotnet add PizzaBox.Storing/PizzaBox.Storing.csproj package microsoft.entityframeworkcore // needed?

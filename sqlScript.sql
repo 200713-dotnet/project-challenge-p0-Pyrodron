@@ -18,7 +18,7 @@ SELECT * FROM Project.Store;
 
 DROP TABLE Project.Pizza;
 CREATE TABLE Project.Pizza(
-  ID INT IDENTITY(1, 1) PRIMARY KEY,
+  ID INT IDENTITY(1, 1) PRIMARY KEY,  -- make NOT NULL
   [Name] VARCHAR(100),
   Price FLOAT(2),
   Toppings VARCHAR(250),
@@ -38,8 +38,8 @@ SELECT * FROM Project.Pizza;
 DROP TABLE Project.Menu;
 -- junction table
 CREATE TABLE Project.Menu(
-  StoreID INT FOREIGN KEY REFERENCES Project.Store(ID),
-  PizzaID INT FOREIGN KEY REFERENCES Project.Pizza(ID)
+  StoreID INT FOREIGN KEY REFERENCES Project.Store(ID), -- make NOT NULL
+  PizzaID INT FOREIGN KEY REFERENCES Project.Pizza(ID)  -- make NOT NULL
 );
 GO
 
@@ -58,3 +58,7 @@ CREATE TABLE Project.PizzaOrder(
   TotalCost FLOAT(2) NOT NULL
 );
 
+INSERT INTO Project.PizzaOrder VALUES(
+  1, 2, 3, 1, '01/01/98 23:59:59', 1.00
+);
+GO

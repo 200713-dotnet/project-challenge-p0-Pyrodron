@@ -1691,6 +1691,16 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
+      },
+      "PizzaBox.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/PizzaBox.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PizzaBox.Domain.dll": {}
+        }
       }
     }
   },
@@ -6183,13 +6193,19 @@
         "system.xml.xmlserializer.4.3.0.nupkg.sha512",
         "system.xml.xmlserializer.nuspec"
       ]
+    },
+    "PizzaBox.Domain/1.0.0": {
+      "type": "project",
+      "path": "../PizzaBox.Domain/PizzaBox.Domain.csproj",
+      "msbuildProject": "../PizzaBox.Domain/PizzaBox.Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "NETStandard.Library >= 2.0.3",
+      "PizzaBox.Domain >= 1.0.0",
       "microsoft.entityframeworkcore >= 3.1.6",
-      "microsoft.entityframeworkcore.sqlserver >= *"
+      "microsoft.entityframeworkcore.sqlserver >= 3.1.6"
     ]
   },
   "packageFolders": {
@@ -6215,7 +6231,11 @@
       },
       "frameworks": {
         "netstandard2.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Domain/PizzaBox.Domain.csproj": {
+              "projectPath": "/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Domain/PizzaBox.Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -6239,7 +6259,7 @@
           },
           "microsoft.entityframeworkcore.sqlserver": {
             "target": "Package",
-            "version": "[*, )"
+            "version": "[3.1.6, )"
           }
         },
         "imports": [

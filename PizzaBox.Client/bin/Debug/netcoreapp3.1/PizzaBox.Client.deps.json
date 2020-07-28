@@ -955,6 +955,11 @@
         }
       },
       "PizzaBox.Storing/1.0.0": {
+        "dependencies": {
+          "PizzaBox.Domain": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "3.1.6",
+          "Microsoft.EntityFrameworkCore.SqlServer": "3.1.6"
+        },
         "runtime": {
           "PizzaBox.Storing.dll": {}
         }

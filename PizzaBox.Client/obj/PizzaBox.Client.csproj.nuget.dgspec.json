@@ -150,7 +150,11 @@
         },
         "frameworks": {
           "netstandard2.0": {
-            "projectReferences": {}
+            "projectReferences": {
+              "/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Domain/PizzaBox.Domain.csproj": {
+                "projectPath": "/home/kyle/2007_13_dotnet/project-challenges/project-challenge-p0-Pyrodron/PizzaBox.Domain/PizzaBox.Domain.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -167,6 +171,14 @@
               "target": "Package",
               "version": "[2.0.3, )",
               "autoReferenced": true
+            },
+            "microsoft.entityframeworkcore": {
+              "target": "Package",
+              "version": "[3.1.6, )"
+            },
+            "microsoft.entityframeworkcore.sqlserver": {
+              "target": "Package",
+              "version": "[3.1.6, )"
             }
           },
           "imports": [
