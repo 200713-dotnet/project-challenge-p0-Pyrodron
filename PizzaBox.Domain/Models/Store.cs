@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-// using PizzaBox.Storing;
 
 namespace PizzaBox.Domain.Models {
   public class Store {
@@ -21,7 +20,7 @@ namespace PizzaBox.Domain.Models {
         return _id;
       }
       set {
-        if (_id == -1 && id >= 0) {
+        if (_id == -1 && value >= 0) {
           _id = value;
         }
       }
@@ -49,6 +48,7 @@ namespace PizzaBox.Domain.Models {
       }
     }
 
+    bool disableTimeRestriction = true;
     public bool CanOrder(User user) {
       try {
         Dictionary<int, Order> orders = _completedOrders[user.id];
@@ -61,10 +61,14 @@ namespace PizzaBox.Domain.Models {
         }
         TimeSpan elapsed = DateTime.Now - lastOrderPlaced;
         int hours = elapsed.Hours;
-        if (elapsed.Hours < 2) {
-          int minutes = elapsed.Minutes;
-          Console.WriteLine($"You must wait {hours} hour{(hours != 2 ? "" : "s")} and {minutes} minute{(minutes != 2 ? "" : "s")} before placing another order.");
-          return false;
+        if (!disableTimeRestriction) {
+          if (elapsed.Hours < 2) {
+            int minutes = 120 - elapsed.Minutes - (60 * elapsed.Hours);
+            hours = minutes / 60;
+            minutes %= 60;
+            Console.WriteLine($"You must wait {hours} hour{(hours != 1 ? "" : "s")} and {minutes} minute{(minutes != 2 ? "" : "s")} before placing another order.");
+            return false;
+          }
         }
         return true;
       } catch (NullReferenceException) {  // store may not have any orders placed
@@ -76,23 +80,19 @@ namespace PizzaBox.Domain.Models {
 
     public Order Visit(User user) {
       if (CanOrder(user)) {
-        Order order = Menu();
+        Order order = Menu(user);
         return order;
-        // if (user.AddOrder(this, order)) {
-        //   Console.WriteLine("Order placed! Please note that you may need to wait up to two hours before placing another order at this store.");
-        // } else {
-        //   Console.WriteLine("There was a problem placing this order.");
-        // }
       } else {
         // CanOrder returning false will print a message
         return null;
       }
     }
 
-    private Order Menu() {
+    private Order Menu(User user) {
       Order order = new Order{
         created = DateTime.Now,
-        store = this
+        store = this,
+        user = user.id
       };
       bool ordering = true;
       while (ordering) {
@@ -118,42 +118,53 @@ namespace PizzaBox.Domain.Models {
       return order;
     }
 
-    // public List<Order> GetCompletedOrders() {
-    //   return completedOrders;
-    // }
+    public List<Order> GetCompletedOrders() {
+      List<Order> listOfOrders = new List<Order>();
+      foreach (int userID in _completedOrders.Keys) {
+        Dictionary<int, Order> orders = _completedOrders[userID];
+        foreach (int orderID in orders.Keys) {
+          listOfOrders.Add(orders[orderID]);
+        }
+      }
+      return listOfOrders;
+    }
 
-    // private void GenerateReport(int interval) {
-    //   Dictionary<DateTime, List<Order>> dict = new Dictionary<DateTime, List<Order>>();
+    private void GenerateReport(int interval) {
+      Dictionary<DateTime, List<Order>> dict = new Dictionary<DateTime, List<Order>>();
+      List<Order> listOfOrders = GetCompletedOrders();
 
-    //   foreach (Order order in completedOrders) {
-    //     DateTime day = order.GetOrderPlacedTime();
-    //     DateTime startingDay = day.AddDays((interval == 7 ? (int) day.DayOfWeek : (day.Day - 1)) * -1);
-    //     try {
-    //       dict[startingDay].Add(order);
-    //     } catch (KeyNotFoundException) {
-    //       List<Order> orders = new List<Order>();
-    //       orders.Add(order);
-    //       dict.Add(startingDay, orders);
-    //     }
-    //   }
+      foreach (Order order in listOfOrders) {
+        DateTime day = order.created.Date;
+        DateTime startingDay = DateTime.Now;
+        if (interval == 7) {
+          startingDay = day.AddDays(-((int) day.DayOfWeek));
+        } else if (interval == 30) {
+          startingDay = day.AddDays(-(day.Day - 1));
+        }
+        try {
+          dict[startingDay].Add(order);
+        } catch (KeyNotFoundException) {
+          dict.Add(startingDay, new List<Order>{order});
+        }
+      }
 
-    //   Console.WriteLine($"{(interval == 7 ? "Weekly" : "Monthly")} sales report for {name}:");
-    //   foreach (DateTime startingDay in dict.Keys) {
-    //     decimal totalSales = 0.00M;
-    //     foreach (Order order in dict[startingDay]) {
-    //       totalSales += order.GetTotalCost();
-    //     }
-    //     string data = interval == 7 ? $"the week of {startingDay.ToLongDateString()}" : $"{startingDay.Month} {startingDay.Year}";
-    //     Console.WriteLine($"> For {data} : ${totalSales}");
-    //   }
-    // }
+      Console.WriteLine($"{(interval == 7 ? "Weekly" : "Monthly")} sales report for {name}:");
+      foreach (DateTime startingDay in dict.Keys) {
+        decimal totalSales = 0.00M;
+        foreach (Order order in dict[startingDay]) {
+          totalSales += order.totalCost;
+        }
+        string data = interval == 7 ? $"the week of {startingDay.ToLongDateString()}" : $"{startingDay.Month}/{startingDay.Year}";
+        Console.WriteLine($"> For {data} : ${totalSales}");
+      }
+    }
 
-    // public void GetWeeklySalesReports() {
-    //   GenerateReport(7);
-    // }
+    public void GetWeeklySalesReports() {
+      GenerateReport(7);
+    }
 
-    // public void GetMonthlySalesReports() {
-    //   GenerateReport(30);
-    // }
+    public void GetMonthlySalesReports() {
+      GenerateReport(30);
+    }
   }
 }

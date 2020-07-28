@@ -65,26 +65,21 @@ namespace PizzaBox.Domain.Models {
       }
     }
 
+    char _size = '0';
+    public char size {
+      get {
+        return _size;
+      }
+      set {
+        if (_size == '0') {
+          _size = value;
+        }
+      }
+    }
+
     public override string ToString() {
       return $"{name} pizza with {string.Join(", ", _toppings)} and {_crust} crust";
     }
-
-    // public Pizza(int pizzaID, string name, double pizzaPrice, string[] toppings, string crust) {
-    //   id = pizzaID;
-    //   Price = pizzaPrice;
-    //   Name = name;
-    //   Crust = crust;
-    //   Toppings = toppings;
-    // }
-
-    // public int GetID() {
-    //   return id;
-    // }
-
-    // public double GetPrice() {
-    //   return Price;
-    // }
-
     // public Pizza(int pizzaID, string sizeOfPizza, string crustType, List<string> toppingsOnPizza, double cost) {
     //   id = pizzaID;
     //   if (sizeOfPizza != "S" && sizeOfPizza != "M" && sizeOfPizza != "L") {

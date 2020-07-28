@@ -2,8 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace PizzaBox.Storing {
-    public partial class PizzaProjectContext : DbContext {
+namespace PizzaBox.Storing
+{
+    public partial class PizzaProjectContext : DbContext
+    {
         public PizzaProjectContext()
         {
         }
@@ -71,32 +73,38 @@ namespace PizzaBox.Storing {
 
             modelBuilder.Entity<PizzaOrder>(entity =>
             {
-                entity.HasKey(e => e.OrderId)
-                    .HasName("PK__PizzaOrd__C3905BAFE99F24F2");
+                entity.HasKey(e => new { e.OrderId, e.StoreId, e.PizzaId, e.UserId })
+                    .HasName("PK__PizzaOrd__F6F26C3F1E42BB0F");
 
                 entity.ToTable("PizzaOrder", "Project");
 
-                entity.Property(e => e.OrderId)
-                    .HasColumnName("OrderID")
-                    .ValueGeneratedNever();
-
-                entity.Property(e => e.PizzaId).HasColumnName("PizzaID");
+                entity.Property(e => e.OrderId).HasColumnName("OrderID");
 
                 entity.Property(e => e.StoreId).HasColumnName("StoreID");
 
+                entity.Property(e => e.PizzaId).HasColumnName("PizzaID");
+
                 entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.Property(e => e.Size)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false)
+                    .IsFixedLength();
 
                 entity.Property(e => e.WhenOrdered).HasColumnType("datetime");
 
                 entity.HasOne(d => d.Pizza)
                     .WithMany(p => p.PizzaOrder)
                     .HasForeignKey(d => d.PizzaId)
-                    .HasConstraintName("FK__PizzaOrde__Pizza__3B40CD36");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__PizzaOrde__Pizza__65370702");
 
                 entity.HasOne(d => d.Store)
                     .WithMany(p => p.PizzaOrder)
                     .HasForeignKey(d => d.StoreId)
-                    .HasConstraintName("FK__PizzaOrde__Store__3A4CA8FD");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__PizzaOrde__Store__6442E2C9");
             });
 
             modelBuilder.Entity<Store>(entity =>

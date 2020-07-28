@@ -18,5 +18,6 @@ dotnet add PizzaBox.Client/PizzaBox.Client.csproj package Microsoft.EntityFramew
 dotnet add PizzaBox.Client/PizzaBox.Client.csproj package Microsoft.EntityFrameworkCore.Sqlserver
 dotnet add PizzaBox.Storing/PizzaBox.Storing.csproj package microsoft.entityframeworkcore // needed?
 dotnet add PizzaBox.Storing/PizzaBox.Storing.csproj package microsoft.entityframeworkcore.sqlserver
+dotnet add PizzaBox.Storing/PizzaBox.Storing.csproj package microsoft.entityframeworkcore.relational
 dotnet-ef dbcontext scaffold -s PizzaBox.Client/PizzaBox.Client.csproj -p PizzaBox.Storing/PizzaBox.Storing.csproj 'server=localhost;database=PizzaProject;user id=sa;password=Passw0rd' microsoft.entityframeworkcore.sqlserver
 dotnet run -p PizzaBox.Client/PizzaBox.Client.csproj

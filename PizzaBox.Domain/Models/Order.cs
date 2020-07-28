@@ -5,9 +5,12 @@ using System.Text;
 namespace PizzaBox.Domain.Models {
   public class Order {
     DateTime? _created = null;
-    public DateTime? created {
+    public DateTime created {
         get {
-          return _created;
+          if (_created == null) {
+            throw new ArgumentException("No date or time asscoiated with this order; it is required");
+          }
+          return (DateTime) _created;
         }
         set {
           if (_created == null) {
@@ -16,28 +19,28 @@ namespace PizzaBox.Domain.Models {
         }
     }
 
-    List<Pizza> _pizzas = new List<Pizza>();
-    public List<Pizza> pizzas {
-      get {
-        return new List<Pizza>(_pizzas);
-      }
-    }
-    public void AddPizza(Pizza pizza) {
+    public List<Pizza> pizzas = new List<Pizza>();
+    // public List<Pizza> pizzas {
+    //   get {
+    //     return new List<Pizza>(pizzas);
+    //   }
+    // }
+    public void AddPizza(Pizza pizza, params bool[] supressPrinting) {
       bool costOver = ((decimal) pizza.cost + totalCost) > 250.00M;
-      bool countOver = _pizzas.Count + 1 > 5;
+      bool countOver = pizzas.Count + 1 > 5;
+      bool isSupressing = supressPrinting.Length > 0 ? supressPrinting[0] : false;
+      string output = "";
+
       if (!costOver && !countOver) {
-        _pizzas.Add(pizza);
+        pizzas.Add(pizza);
         _totalCost += (decimal) pizza.cost;
-        Console.WriteLine($"Added {pizza}");
+        output = $"Added {pizza}";
       } else {
-        Console.Write("Cannot add another pizza; ");
-        if (costOver) {
-          Console.Write("Order is limited to $250 ");
-        }
-        if (countOver) {
-          Console.Write("Order is limited to 5 pizzas");
-        }
-        Console.WriteLine();
+        output = $"Cannot add another pizza; {(costOver ? "Limited to $250 " : "")}{(countOver ? "Limited to 5 pizzas" : "")}";
+      }
+
+      if (!isSupressing) {
+        Console.WriteLine(output);
       }
     }
 
@@ -82,8 +85,8 @@ namespace PizzaBox.Domain.Models {
 
     public override string ToString() {
       StringBuilder sb = new StringBuilder($"{store.name}, User {user}, ${totalCost}, Order Created {_created},\nPizzas: \n");
-      for (int i = 0; i < _pizzas.Count; i++) {
-        sb.Append($"\t{_pizzas[i].name}\n");
+      for (int i = 0; i < pizzas.Count; i++) {
+        sb.Append($"\t{pizzas[i].name}\n");
       }
       return sb.ToString();
     }

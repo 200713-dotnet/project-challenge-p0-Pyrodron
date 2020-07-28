@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using domain = PizzaBox.Domain.Models;
 
 namespace PizzaBox.Storing.Repositories {
@@ -26,7 +27,6 @@ namespace PizzaBox.Storing.Repositories {
           // add orders later
         });
       }
-
       pizzas = ReadAllPizzas();
 
       // populate menus
@@ -41,39 +41,7 @@ namespace PizzaBox.Storing.Repositories {
       }
       
       foreach (PizzaOrder order in db.PizzaOrder.ToList()) {
-        int storeID = (int) order.StoreId;
-        int userID = (int) order.UserId;
-        int orderID = (int) order.OrderId;
-        int pizzaID = (int) order.PizzaId;
-        
-        Dictionary<int, Dictionary<int, domain.Order>> newStoreOrder;
-        try {
-          newStoreOrder = orders[storeID];
-        } catch (KeyNotFoundException) {
-          orders.Add(storeID, new Dictionary<int, Dictionary<int, domain.Order>>());
-          newStoreOrder = orders[storeID];
-        }
-        Dictionary<int, domain.Order> newUserOrder;
-        try {
-          newUserOrder = newStoreOrder[userID];
-        } catch (KeyNotFoundException) {
-          newStoreOrder.Add(userID, new Dictionary<int, domain.Order>());
-          newUserOrder = newStoreOrder[userID];
-        }
-        domain.Order domainOrder;
-        try {
-          domainOrder = newUserOrder[orderID];
-        }  catch (KeyNotFoundException) {
-            domainOrder = new domain.Order(){
-              created = order.WhenOrdered,
-              // add pizzas later
-              totalCost = (decimal) order.TotalCost,
-              store = stores[storeID],
-              user = order.UserId
-            };
-            newUserOrder.Add(orderID, domainOrder);
-        }
-        domainOrder.AddPizza(pizzas[pizzaID]);
+        AddOrder(order);
       }
 
       foreach (int storeID in stores.Keys) {
@@ -88,6 +56,42 @@ namespace PizzaBox.Storing.Repositories {
           // a store may not have pizzas to sell. maybe they're just selling breadsticks?
         }
       }
+    }
+
+    private void AddOrder(PizzaOrder order) {
+      int storeID = (int) order.StoreId;
+      int userID = (int) order.UserId;
+      int orderID = (int) order.OrderId;
+      int pizzaID = (int) order.PizzaId;
+
+      try {
+        _ = orders[storeID];
+      } catch (KeyNotFoundException) {
+        orders.Add(storeID, new Dictionary<int, Dictionary<int, domain.Order>>());
+        // Console.WriteLine("S" + storeID); // working
+      }
+      try {
+        _ = orders[storeID][userID];
+      } catch (KeyNotFoundException) {
+        orders[storeID].Add(userID, new Dictionary<int, domain.Order>());
+        // Console.WriteLine($"S{storeID} U{userID}");  // working
+      }
+      domain.Order domainOrder;
+      try {
+        domainOrder = orders[storeID][userID][orderID];
+      } catch (KeyNotFoundException) {
+        domainOrder = new domain.Order{
+          created = order.WhenOrdered,
+          store = stores[storeID],
+          user = order.UserId
+        };
+        orders[storeID][userID].Add(orderID, domainOrder);
+        // Console.WriteLine($"S{storeID} U{userID} O{orderID}"); // working
+      }
+      domain.Pizza pizza = pizzas[pizzaID];
+      pizza.size = order.Size[0];
+      domainOrder.AddPizza(pizzas[pizzaID], true);
+      orders[storeID][userID][orderID] = domainOrder;
     }
 
     public Dictionary<int, domain.Pizza> ReadAllPizzas() {
@@ -123,18 +127,25 @@ namespace PizzaBox.Storing.Repositories {
       return ordersForUser;
     }
 
-    public void AddOrder(domain.Order order) {
+    public void AddOrderToDB(domain.Order order) {
+      int newOrderNumber = db.PizzaOrder.Max(p => p.OrderId) + 1;
+      List<domain.Order> ordersToAdd = new List<domain.Order>();
       foreach (domain.Pizza pizza in order.pizzas) {
+        int store_ID = order.store.id;
+        int user_ID = order.user;
         PizzaOrder dbOrder = new PizzaOrder {
-          StoreId = order.store.id,
+          OrderId = newOrderNumber,
+          StoreId = store_ID,
           PizzaId = pizza.id,
-          UserId = order.user,
+          UserId = user_ID,
           WhenOrdered = (DateTime) order.created,
-          TotalCost = (float) order.totalCost
+          TotalCost = (float) order.totalCost,
+          Size = "0"
         };
+        AddOrder(dbOrder);
         db.PizzaOrder.Add(dbOrder);
-        // db.SaveChanges();
       }
+      db.SaveChanges();
     }
   }
 }

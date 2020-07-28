@@ -1306,6 +1306,7 @@
         "dependencies": {
           "PizzaBox.Domain": "1.0.0",
           "microsoft.entityframeworkcore": "3.1.6",
+          "microsoft.entityframeworkcore.relational": "3.1.6",
           "microsoft.entityframeworkcore.sqlserver": "3.1.6"
         },
         "compile": {

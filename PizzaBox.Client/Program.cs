@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using PizzaBox.Storing.Repositories;
+using System.Linq;
 
 namespace PizzaBox.Client {
     class Program {
@@ -18,13 +19,9 @@ namespace PizzaBox.Client {
           User user = new User{ id = 1 };
           Dictionary<int, Order> orders = pizzaDB.GetOrders(user.id);
           foreach (int orderID in orders.Keys) {
-            user.orders.Add(orders[orderID]);
+            user.AddOrder(orders[orderID]);
           }
           
-          // SqlConnection conn = new SqlConnection();
-          // conn.ConnectionString = "Data Source=localhost;Initial Catalog=PizzaProject;User id=sa;Password=Passw0rd;";
-          // conn.Open();
-
           bool tryAgain = true;
           while (tryAgain) {
             Console.WriteLine("Hello! Please select which store you would like to visit.");
@@ -41,14 +38,15 @@ namespace PizzaBox.Client {
                 Order newOrder = stores[selection].Visit(user);
 
                 if (newOrder != null) {
-                  pizzaDB.AddOrder(newOrder);
-                  // refresh orders?
+                  pizzaDB.AddOrderToDB(newOrder);
+                  user.AddOrder(newOrder);
                 }
 
                 bool tryAgain2 = true;
                 Console.Write("Do you want to visit another store (Y/N)? ");
                 while (tryAgain2) {
                   char response = char.ToUpper(Console.ReadKey().KeyChar);
+                  Console.WriteLine();
                   if (response == 'Y' || response == 'N') {
                     tryAgain2 = false;
                     if (response == 'N') {
