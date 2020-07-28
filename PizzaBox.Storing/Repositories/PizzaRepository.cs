@@ -140,7 +140,7 @@ namespace PizzaBox.Storing.Repositories {
           UserId = user_ID,
           WhenOrdered = (DateTime) order.created,
           TotalCost = (float) order.totalCost,
-          Size = "0"
+          Size = pizza.size.ToString()
         };
         AddOrder(dbOrder);
         db.PizzaOrder.Add(dbOrder);

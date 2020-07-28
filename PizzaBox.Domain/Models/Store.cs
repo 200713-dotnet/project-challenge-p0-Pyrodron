@@ -88,6 +88,15 @@ namespace PizzaBox.Domain.Models {
       }
     }
 
+    private void PrintOrder(Order order) {
+      List<Pizza> pizzas = order.pizzas;
+      Console.WriteLine($"There are {pizzas.Count} pizzas in this order");
+      int i = 1;
+      foreach (Pizza pizza in pizzas) {
+        Console.WriteLine($"{i++}: {pizza}");
+      }
+    }
+
     private Order Menu(User user) {
       Order order = new Order{
         created = DateTime.Now,
@@ -100,14 +109,51 @@ namespace PizzaBox.Domain.Models {
         for (int i = 0; i < menu.Length; i++) {
           Console.WriteLine($"{i + 1} - {menu[i].ToString()}");
         }
-        Console.WriteLine($"{menu.Length + 1} - Finished Ordering"); // let the last option allow the user to finish ordering
+        Console.WriteLine($"{menu.Length + 1} - Finished Ordering");
+        Console.WriteLine($"{menu.Length + 2} - View Order");
+        Console.WriteLine($"{menu.Length + 3} - Remove Pizza From Order");
         int selection;
         if (int.TryParse(Console.ReadLine(), out selection)) {
           if (selection == menu.Length + 1) {
             ordering = false;
             break;
+          } else if (selection == menu.Length + 2) {
+            PrintOrder(order);
+          } else if (selection == menu.Length + 3) {
+            PrintOrder(order);
+            Console.WriteLine("Which pizza would you like to delete from this order (type 0 to leave this menu without deleting any pizza)? ");
+            bool tryAgain = true;
+            while (tryAgain) {
+              int pizzaToDelete;
+              if (int.TryParse(Console.ReadLine(), out pizzaToDelete)) {
+                if (pizzaToDelete >= 1 && pizzaToDelete <= order.pizzas.Count) {
+                  order.pizzas.Remove(order.pizzas[pizzaToDelete - 1]);
+                  tryAgain = false;
+                  Console.WriteLine($"Pizza {pizzaToDelete} has been removed from the order");
+                } else if (pizzaToDelete == 0) {
+                  tryAgain = false;
+                } else {
+                  Console.WriteLine("Invalid selection. Please enter an integer that corresponds to the pizza you want to delete, or 0 if you do not want to make changes.");
+                }
+              } else {
+                Console.WriteLine("Invalid input. Please enter a valid integer.");
+              }
+            }
           } else if (selection >= 1 && selection <= menu.Length) {
-            order.AddPizza(menu[--selection]);  // AddPizza will print whether successful or not
+            Console.WriteLine("What size pizza do you want (S/M/L)? ");
+            bool tryAgain = true;
+            Pizza pizza = menu[--selection];
+            while (tryAgain) {
+              char sizeSelection = char.ToUpper(Console.ReadKey().KeyChar);
+              Console.WriteLine();
+              if (sizeSelection == 'S' || sizeSelection == 'M' || sizeSelection == 'L') {
+                pizza.size = sizeSelection;
+                tryAgain = false;
+              } else {
+                Console.WriteLine("Invalid input. Must be S for small, M for medium, or L for large.");
+              }
+            }
+            order.AddPizza(pizza);  // AddPizza will print whether successful or not
           } else {
             Console.WriteLine("Error: Invalid option selected. Please try again.");
           }
