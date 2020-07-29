@@ -75,7 +75,7 @@ O select pizza and its size
 O see a tally of my order
 O add or remove more pizzas
 O and checkout when complete with latest order
-+ see my order history
+O see my order history
 O make a new order
 
 ## store story

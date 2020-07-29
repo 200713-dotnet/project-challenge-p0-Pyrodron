@@ -19,20 +19,21 @@ namespace PizzaBox.Domain.Models {
         }
     }
 
-    public List<Pizza> pizzas = new List<Pizza>();
-    // public List<Pizza> pizzas {
-    //   get {
-    //     return new List<Pizza>(pizzas);
-    //   }
-    // }
+    List<Pizza> _pizzas = new List<Pizza>();
+    public List<Pizza> pizzas {
+      get {
+        return new List<Pizza>(_pizzas);
+      }
+    }
+    
     public void AddPizza(Pizza pizza, params bool[] supressPrinting) {
       bool costOver = ((decimal) pizza.cost + totalCost) > 250.00M;
-      bool countOver = pizzas.Count + 1 > 5;
+      bool countOver = _pizzas.Count + 1 > 5;
       bool isSupressing = supressPrinting.Length > 0 ? supressPrinting[0] : false;
       string output = "";
 
       if (!costOver && !countOver) {
-        pizzas.Add(pizza);
+        _pizzas.Add(pizza);
         _totalCost += (decimal) pizza.cost;
         output = $"Added {pizza}";
       } else {
@@ -91,40 +92,8 @@ namespace PizzaBox.Domain.Models {
       return sb.ToString();
     }
 
-    // public Pizza RemovePizzas(int index) {
-    //   Pizza pizza;
-    //   try {
-    //     pizza = pizzas[index];
-    //     pizzas.Remove(pizza);
-    //     return pizza;
-    //   } catch (IndexOutOfRangeException) {
-    //     return null;
-    //   }
-    // }
-
-    // public override string ToString() {
-    //   return "";  // TODO
-    // }
-
-    // public DateTime GetOrderCreationDate() {
-    //   return created;
-    // }
-
-    // public decimal GetTotalCost() {
-      // decimal totalCost = 0.00M;
-      // foreach (Pizza pizza in pizzas) {
-      //   totalCost += pizza.GetPrice();
-      // }
-      // return totalCost;
-      // return -1.00M;
-    // }
-
-    // public List<Pizza> GetOrder() {
-    //   return pizzas;
-    // }
-
-    // public DateTime GetOrderPlacedTime() {
-    //   return created;
-    // }
+    public void RemovePizza(Pizza pizza) {
+      _pizzas.Remove(pizza);
+    }
   }
 }

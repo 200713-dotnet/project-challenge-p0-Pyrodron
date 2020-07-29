@@ -48,7 +48,6 @@ namespace PizzaBox.Domain.Models {
       }
     }
 
-    bool disableTimeRestriction = true;
     public bool CanOrder(User user) {
       try {
         Dictionary<int, Order> orders = _completedOrders[user.id];
@@ -61,14 +60,12 @@ namespace PizzaBox.Domain.Models {
         }
         TimeSpan elapsed = DateTime.Now - lastOrderPlaced;
         int hours = elapsed.Hours;
-        if (!disableTimeRestriction) {
-          if (elapsed.Hours < 2) {
-            int minutes = 120 - elapsed.Minutes - (60 * elapsed.Hours);
-            hours = minutes / 60;
-            minutes %= 60;
-            Console.WriteLine($"You must wait {hours} hour{(hours != 1 ? "" : "s")} and {minutes} minute{(minutes != 2 ? "" : "s")} before placing another order.");
-            return false;
-          }
+        if (elapsed.Hours < 2) {
+          int minutes = 120 - elapsed.Minutes - (60 * elapsed.Hours);
+          hours = minutes / 60;
+          minutes %= 60;
+          Console.WriteLine($"You must wait {hours} hour{(hours != 1 ? "" : "s")} and {minutes} minute{(minutes != 2 ? "" : "s")} before placing another order.");
+          return false;
         }
         return true;
       } catch (NullReferenceException) {  // store may not have any orders placed
@@ -127,7 +124,7 @@ namespace PizzaBox.Domain.Models {
               int pizzaToDelete;
               if (int.TryParse(Console.ReadLine(), out pizzaToDelete)) {
                 if (pizzaToDelete >= 1 && pizzaToDelete <= order.pizzas.Count) {
-                  order.pizzas.Remove(order.pizzas[pizzaToDelete - 1]);
+                  order.RemovePizza(order.pizzas[pizzaToDelete - 1]);
                   tryAgain = false;
                   Console.WriteLine($"Pizza {pizzaToDelete} has been removed from the order");
                 } else if (pizzaToDelete == 0) {
