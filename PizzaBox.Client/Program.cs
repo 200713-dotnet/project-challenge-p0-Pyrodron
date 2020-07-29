@@ -35,39 +35,45 @@ namespace PizzaBox.Client {
             Console.WriteLine($"{i} - Exit");
             int selection;
             if (int.TryParse(Console.ReadLine(), out selection)) {
-              if (selection != i && selection != i - 1) {
-                Order newOrder = stores[selection].Visit(user);
+              if (selection >= 1 && selection <= i) {
+                if (selection != i && selection != i - 1) {
+                  Order newOrder = stores[selection].Visit(user);
 
-                if (newOrder != null) {
-                  pizzaDB.AddOrderToDB(newOrder);
-                  user.AddOrder(newOrder);
-                }
-
-                bool tryAgain2 = true;
-                Console.Write("Do you want to visit another store (Y/N)? ");
-                while (tryAgain2) {
-                  char response = char.ToUpper(Console.ReadKey().KeyChar);
-                  Console.WriteLine();
-                  if (response == 'Y' || response == 'N') {
-                    tryAgain2 = false;
-                    if (response == 'N') {
-                      tryAgain = false;
-                    }
+                  if (newOrder != null && newOrder.pizzas.Count != 0) {
+                    pizzaDB.AddOrderToDB(newOrder);
+                    user.AddOrder(newOrder);
                   } else {
-                    Console.WriteLine("Invalid input detected. Please press Y or Shift+Y for yes, or N or Shift+N for no.");
+                    Console.WriteLine("Empty order was not submitted");
                   }
-                }
-              } else if (selection == i - 1) {
-                Console.WriteLine("Order History:");
-                foreach (int orderID in orders.Keys) {
-                  Order order = orders[orderID];
-                  Console.WriteLine($"\t> Order #{orderID}: ");
-                  foreach (Pizza pizza in order.pizzas) {
-                    Console.WriteLine($"\t\t> {pizza}");
+
+                  bool tryAgain2 = true;
+                  Console.Write("Do you want to visit another store (Y/N)? ");
+                  while (tryAgain2) {
+                    char response = char.ToUpper(Console.ReadKey().KeyChar);
+                    Console.WriteLine();
+                    if (response == 'Y' || response == 'N') {
+                      tryAgain2 = false;
+                      if (response == 'N') {
+                        tryAgain = false;
+                      }
+                    } else {
+                      Console.WriteLine("Invalid input detected. Please press Y or Shift+Y for yes, or N or Shift+N for no.");
+                    }
                   }
+                } else if (selection == i - 1) {
+                  Console.WriteLine("Order History:");
+                  foreach (int orderID in orders.Keys) {
+                    Order order = orders[orderID];
+                    Console.WriteLine($"\t> Order #{orderID}: ");
+                    foreach (Pizza pizza in order.pizzas) {
+                      Console.WriteLine($"\t\t> {pizza}");
+                    }
+                  }
+                } else {
+                  tryAgain = false;
                 }
               } else {
-                tryAgain = false;
+                Console.WriteLine("Invalid integer. Please enter an integer for one of the options above.");
               }
             } else {
               Console.WriteLine("Invalid input detected. Please try again.");

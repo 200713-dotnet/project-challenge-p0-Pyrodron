@@ -64,7 +64,7 @@ namespace PizzaBox.Domain.Models {
           int minutes = 120 - elapsed.Minutes - (60 * elapsed.Hours);
           hours = minutes / 60;
           minutes %= 60;
-          Console.WriteLine($"You must wait {hours} hour{(hours != 1 ? "" : "s")} and {minutes} minute{(minutes != 2 ? "" : "s")} before placing another order.");
+          Console.WriteLine($"You must wait {hours} hour{(hours != 1 ? "s" : "")} and {minutes} minute{(minutes != 1 ? "s" : "")} before placing another order.");
           return false;
         }
         return true;
